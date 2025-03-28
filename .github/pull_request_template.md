@@ -1,4 +1,4 @@
-# AURA Platform - Pull request
+# Pull request
 
 ## Descrição
 
@@ -12,11 +12,6 @@
 - [ ] Mudança de documentação
 - [ ] Refatoração
 - [ ] Outros (especificar)
-
-## Issue relacionada
-Este PR está relacionado às seguintes issues do Jira:
-- Jira ID: [INSIRA O ID DA ISSUE]
-
 
 ## Checklist
 - [ ] O código segue as diretrizes de estilo do projeto.
