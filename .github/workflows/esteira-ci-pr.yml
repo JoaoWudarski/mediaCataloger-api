@@ -30,7 +30,7 @@ jobs:
 
   build-image:
     runs-on: ubuntu-latest
-    needs: [setup, build, release_tag]
+    needs: [setup, build]
     steps:
       - name: Docker QEMU setup
         uses: docker/setup-qemu-action@v2
