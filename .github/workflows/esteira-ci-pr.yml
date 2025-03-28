@@ -23,6 +23,10 @@ jobs:
     steps:
       - name: Checkout git actions
         uses: actions/checkout@v2
+      - name: Technology setup
+        uses: actions/setup-java@v1
+        with:
+          java-version: 21
       - name: Install Dependencies
         run: mvn clean install
       - name: Production Build
