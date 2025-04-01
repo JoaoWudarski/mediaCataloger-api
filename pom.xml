@@ -12,7 +12,7 @@
 
     <groupId>com.joaowudarski</groupId>
     <artifactId>media-cataloger-api</artifactId>
-    <version>v0.2.0</version>
+    <version>v0.1.0</version>
     <name>media-cataloger-api</name>
 
     <properties>
