@@ -3,7 +3,7 @@ name: esteira-ci-prd
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   setup:
