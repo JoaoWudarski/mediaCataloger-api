@@ -47,7 +47,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.github.JoaoWudarski</groupId>
+            <artifactId>jwt-annotation-security</artifactId>
+            <version>feature~aplicando-funcionalidade-base-9aaa9d22bb-1</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
 
     <build>
         <finalName>${project.artifactId}</finalName>
