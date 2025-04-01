@@ -2,7 +2,7 @@ spring:
   application:
     name: media-cataloger-api
   profiles:
-    active: ${ENVIRONMENT}
+    active: test
 
 logging:
   level:
@@ -11,3 +11,9 @@ logging:
         web:
           client:
             RestTemplate: TRACE
+
+
+token-config:
+  issuer: "AURA CORPORATION"
+  expirationTimeSeconds: 10800
+  secretKey: "Dtpb2ley7RmAN8GDKcWNpnox31KZvZiZ"
