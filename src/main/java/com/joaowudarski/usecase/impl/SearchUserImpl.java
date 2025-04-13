@@ -1,4 +1,4 @@
-package com.joaowudarski.usecase;
+package com.joaowudarski.usecase.impl;
 
 import com.br.jvcw.domain.SecureUser;
 import com.br.jvcw.usecase.SearchUser;
