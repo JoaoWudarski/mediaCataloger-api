@@ -11,3 +11,9 @@ logging:
         web:
           client:
             RestTemplate: TRACE
+
+
+token-config:
+  issuer: "MEDIA-CATALOG"
+  expirationTimeSeconds: 10800
+  secretKey: "Dtpb2ley7RmAN8GDKcWNpnox31KZvZiZ"
