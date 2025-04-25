@@ -20,10 +20,18 @@ public enum MediaType {
     private final Class<? extends AbstractMedia> entity;
     private final Class<? extends JpaRepository<?, String>> repository;
     private final Class<?> dtoInput;
-    private final Class<?> dtoOutput;
+    private final Class<? extends ResponseDto> dtoOutput;
 
     public static Optional<MediaType> findByName(String name) {
         return Arrays.stream(values()).filter(x -> x.name.equals(name))
                 .findFirst();
+    }
+
+    public ResponseDto getNewOutputInstance() {
+        try {
+            return this.dtoOutput.getDeclaredConstructor().newInstance();
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+            throw new InvalidTypeException(e.getMessage(), e);
+        }
     }
 }
