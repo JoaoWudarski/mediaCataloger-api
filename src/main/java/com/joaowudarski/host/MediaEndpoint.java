@@ -3,10 +3,12 @@ package com.joaowudarski.host;
 import com.br.jvcw.annotation.SecurityToken;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joaowudarski.exception.InvalidTypeException;
 import com.joaowudarski.media.AbstractMedia;
 import com.joaowudarski.media.MediaType;
 import com.joaowudarski.media.request.interfaces.RequestDto;
 import com.joaowudarski.usecase.CreateMediaRegister;
+import com.joaowudarski.usecase.DeleteMediaRegister;
 import com.joaowudarski.usecase.SearchMedia;
 import com.joaowudarski.usecase.UpdateMediaRegister;
 import lombok.RequiredArgsConstructor;
@@ -21,11 +23,13 @@ public class MediaEndpoint {
     private final CreateMediaRegister createMediaRegister;
     private final SearchMedia searchMedia;
     private final UpdateMediaRegister updateMediaRegister;
+    private final DeleteMediaRegister deleteMediaRegister;
 
     @PostMapping("/{mediaName}")
     public ResponseEntity<String> create(@PathVariable String mediaName, @RequestBody String mediaObject) {
         try {
-            Class<?> type = MediaType.findByName(mediaName).map(MediaType::getDtoInput).orElseThrow();
+            Class<?> type = MediaType.findByName(mediaName).map(MediaType::getDtoInput)
+                    .orElseThrow(() -> new InvalidTypeException("There is no media with name " + mediaName));
             RequestDto parsedObject = (RequestDto) new ObjectMapper().readValue(mediaObject, type);
             return ResponseEntity.ok(createMediaRegister.execute(parsedObject.toEntity()));
         } catch (JsonProcessingException e) {
@@ -37,7 +41,8 @@ public class MediaEndpoint {
     @SecurityToken(permissionLevel = "USER")
     public ResponseEntity<String> modify(@PathVariable String mediaName, @PathVariable String mediaId, @RequestBody String mediaObject) {
         try {
-            MediaType mediaType = MediaType.findByName(mediaName).orElseThrow();
+            MediaType mediaType = MediaType.findByName(mediaName).orElseThrow(() ->
+                    new InvalidTypeException("There is no media with name " + mediaName));
             AbstractMedia mediaBd = searchMedia.byId(mediaType, mediaId).orElseThrow();
 
             RequestDto mediaNew = (RequestDto) new ObjectMapper().readValue(mediaObject, mediaType.getDtoInput());
@@ -45,5 +50,15 @@ public class MediaEndpoint {
         } catch (JsonProcessingException e) {
             return ResponseEntity.badRequest().body(String.format("Erro ao converter json: %s", e.getMessage()));
         }
+    }
+
+    @DeleteMapping("/{mediaName}/{mediaId}")
+    @SecurityToken(permissionLevel = "USER")
+    public ResponseEntity<Void> delete(@PathVariable String mediaName, @PathVariable String mediaId) {
+        MediaType mediaType = MediaType.findByName(mediaName).orElseThrow(() ->
+                new InvalidTypeException("There is no media with name " + mediaName));
+        
+        deleteMediaRegister.execute(mediaType, mediaId);
+        return ResponseEntity.noContent().build();
     }
 }
