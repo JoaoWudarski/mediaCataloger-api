@@ -2,7 +2,7 @@ spring:
   application:
     name: media-cataloger-api
   profiles:
-    active: test
+    active: ${ENVIRONMENT}
 
 logging:
   level:
@@ -14,6 +14,6 @@ logging:
 
 
 token-config:
-  issuer: "AURA CORPORATION"
+  issuer: "MEDIA-CATALOG"
   expirationTimeSeconds: 10800
   secretKey: "Dtpb2ley7RmAN8GDKcWNpnox31KZvZiZ"
