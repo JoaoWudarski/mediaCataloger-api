@@ -1,12 +1,16 @@
 package com.joaowudarski.media;
 
+import com.joaowudarski.exception.InvalidTypeException;
 import com.joaowudarski.media.repository.MovieRepository;
 import com.joaowudarski.media.entity.MovieEntity;
 import com.joaowudarski.media.request.MovieRequest;
+import com.joaowudarski.media.response.MovieResponse;
+import com.joaowudarski.media.response.interfaces.ResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -14,7 +18,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public enum MediaType {
 
-    MOVIE("movie_type", MovieEntity.class, MovieRepository.class, MovieRequest.class, Object.class);
+    MOVIE("movie_type", MovieEntity.class, MovieRepository.class, MovieRequest.class, MovieResponse.class);
 
     private final String name;
     private final Class<? extends AbstractMedia> entity;
