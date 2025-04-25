@@ -32,6 +32,7 @@ public class MediaEndpoint {
     private final DeleteMediaRegister deleteMediaRegister;
 
     @PostMapping("/{mediaName}")
+    @SecurityToken(permissionLevel = "USER")
     public ResponseEntity<String> create(@PathVariable String mediaName, @RequestBody String mediaObject) {
         try {
             Class<?> type = MediaType.findByName(mediaName).map(MediaType::getDtoInput)
@@ -70,6 +71,7 @@ public class MediaEndpoint {
     }
 
     @GetMapping("/{mediaName}/{mediaId}")
+    @SecurityToken(permissionLevel = "USER")
     public ResponseEntity<ResponseDto> getById(@PathVariable String mediaName, @PathVariable String mediaId) {
         MediaType mediaType = MediaType.findByName(mediaName).orElseThrow(() ->
                 new InvalidTypeException(String.format(MEDIA_NOT_FOUND_MESSAGE, mediaName)));
